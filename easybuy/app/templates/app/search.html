@@ -1,0 +1,37 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Search Result For {{query}}{% endblock title %}
+{% block main-content %}
+<div class="container my-5">
+ <div class="row">
+  <h1 class="text-center mb-5">Search Result For {{query}}</h1>
+  <div class="col-sm-8">
+  <div class="card">
+   <div class="card-body">
+    <h3>Results</h3>
+    {% for cart in data %}<hr>
+    <div class="row">
+     <div class="col-sm-3 text-center align-self-center"><img src="{{cart.product_image.url}}" alt="" srcset="" class="img-fluid img-thumbnail shadow-sm" height="150" width="150"> </div>
+     <div class="col-sm-9">
+      <div>
+       <h5>{{cart.tittle}}</h5>
+       <p class="mb-2 text-muted small">{{cart.description}}</p>
+       <p class="mb-2"><strong>Rs. {{cart.discount_price}}</strong></p>
+       <form action="/add-to-cart" class="d-inline">
+           <input type="hidden" name="prod_id" value="{{cart.id}}" id="prod_id">
+           <button type="submit" class="btn btn-primary shadow pxx-5 py-2">Add To Cart</button>
+           <button type="submit" class="btn btn-danger shadow pxx-5 py-2" style="margin-left: 20%;">Buy Now</button>
+       </form>
+       <form action="/wishlist" class="d-inline">
+           <input type="hidden" name="prod_id" value="{{cart.id}}" id="prod_id">
+           <button type="submit" class="btn btn-info shadow pxx-5 py-2" style="margin-left: 20%;">Add To Wishlist</button>
+       </form>
+      </div>
+     </div>
+    </div>
+    {% endfor %}
+   </div>
+   </div>
+  </div>
+</div>
+{% endblock main-content %}

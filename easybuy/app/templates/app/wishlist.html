@@ -1,0 +1,54 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %} WishList {% endblock title %}
+{% block main-content %}
+<div class="container my-5">
+ <div class="row">
+  <h1 class="text-center mb-5">Wishlist</h1>
+  <div class="col-sm-8">
+  <div class="card">
+   <div class="card-body">
+    <h3>Wishlist</h3>
+    {% for wishlist in wishlist_product %}<hr>
+    <div class="row">
+     <div class="col-sm-3 text-center align-self-center"><img src="{{wishlist.product.product_image.url}}" alt="" srcset="" class="img-fluid img-thumbnail shadow-sm" height="150" width="150"> </div>
+     <div class="col-sm-9">
+      <div>
+       <h5>{{wishlist.product.tittle}}</h5>
+       <p class="mb-2 text-muted small">{{wishlist.product.description}}</p>
+       <p class="mb-2"><strong>{{wishlist.product.discount_price}}</strong></p>
+      </div>
+      {% if item_already_in_wishlist %}
+      <a href="{% url 'wishlist' %}" class="btn btn-warning shadow px-5 py-2  ms-4">Go To Wishlist</a>
+     {% else %}
+      <form action="/add-to-cart" class="d-inline">
+    <input type="hidden" name="prod_id" value="{{wishlist.product.id}}" id="prod_id">
+    <button type="submit" class="btn btn-primary shadow pxx-5 py-2">Add To Cart</button>
+      </form>
+      <form action="/remove_wishlist" class="d-inline">
+    <input type="hidden" name="prod_id" value="{{wishlist.product.id}}" id="prod_id">
+    <button type="submit" class="btn btn-primary shadow pxx-5 py-2" style="margin-left: 50px;">Remove</button>
+      </form>
+      {% endif %}
+     </div>
+    </div>
+    {% endfor %}
+   </div>
+   </div>
+  </div>
+ </div>
+</div>
+<div class="container">
+ <div class="row">
+  <div class="col-sm-8">
+   <div class="card">
+    <div class="card-body">
+      <h5 class="mb-4">We accept</h5>
+      <img src="{% static 'app/images/payment.png' %}" alt="" class="img-fluid">
+    </div>
+  </div>
+  </div>
+ </div>
+</div>
+
+{% endblock main-content %}
